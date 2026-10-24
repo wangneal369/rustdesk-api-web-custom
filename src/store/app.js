@@ -23,7 +23,7 @@ export const useAppStore = defineStore({
   id: 'App',
   state: () => ({
     setting: {
-      title: 'Rustdesk API Admin',
+      title: 'RustDesk 管理后台', // custom: 与后端 admin.title 默认值保持一致
       hello: '',
       sideIsCollapse: false,
       logo,
@@ -31,7 +31,7 @@ export const useAppStore = defineStore({
       lang: defaultLang,
       locale: langs[defaultLang] ? langs[defaultLang] : langs['en'],
       appConfig: {
-        web_client: 1,
+        web_client: 0, // custom: 默认关闭网页客户端，在后端配置加载前不显示 Web Client 按钮
       },
       rustdeskConfig: {
         'id_server': '',

@@ -163,7 +163,7 @@ export const asyncRoutes = [
       {
         path: '/oauth',
         name: 'Oauth',
-        meta: { title: 'OauthManage', icon: 'Link' /*keepAlive: true*/ },
+        meta: { title: 'OauthManage', icon: 'Link', hide: true /* custom: 本部署不使用 OAuth 管理页，仅隐藏菜单 */ },
         component: () => import('@/views/oauth/index.vue'),
       },
       {
@@ -181,13 +181,13 @@ export const asyncRoutes = [
       {
         path: '/auditConn',
         name: 'AuditConn',
-        meta: { title: 'AuditConnLog', icon: 'Tickets' /*keepAlive: true*/ },
+        meta: { title: 'AuditConnLog', icon: 'Tickets', hide: true /* custom: 连接审计日志未启用，仅隐藏菜单 */ },
         component: () => import('@/views/audit/connList.vue'),
       },
       {
         path: '/auditFile',
         name: 'AuditFile',
-        meta: { title: 'AuditFileLog', icon: 'Files' /*keepAlive: true*/ },
+        meta: { title: 'AuditFileLog', icon: 'Files', hide: true /* custom: 文件传输审计日志未启用，仅隐藏菜单 */ },
         component: () => import('@/views/audit/fileList.vue'),
       },
       {
@@ -199,7 +199,7 @@ export const asyncRoutes = [
       {
         path: '/serverCmd',
         name: 'ServerCmd',
-        meta: { title: 'ServerCmd', icon: 'Tools' /*keepAlive: true*/ },
+        meta: { title: 'ServerCmd', icon: 'Tools', hide: true /* custom: 服务器命令仅适用于自研 rustdesk-server，隐藏菜单 */ },
         component: () => import('@/views/rustdesk/control.vue'),
       },
     ],
