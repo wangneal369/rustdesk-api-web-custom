@@ -38,12 +38,12 @@ export function useRepositories (api_type = 'my') {
     const res = await apis[api_type].list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
-      const ids = res.data.list.map(item => item.id)
+      const ids = res.payload.list.map(item => item.id)
       if (ids.length) {
         const peer_data = await simpleData({ ids }).catch(_ => false)
         if (peer_data) {
-          res.data.list.forEach(item => {
-            const peer = peer_data.data.list.find(peer => peer.id === item.id)
+          res.payload.list.forEach(item => {
+            const peer = peer_data.payload.list.find(peer => peer.id === item.id)
             if (peer) {
               item.peer = peer
             }
@@ -51,8 +51,8 @@ export function useRepositories (api_type = 'my') {
         }
       }
 
-      listRes.list = res.data.list
-      listRes.total = res.data.total
+      listRes.list = res.payload.list
+      listRes.total = res.payload.total
     }
   }
   const handlerQuery = () => {

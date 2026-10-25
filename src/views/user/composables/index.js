@@ -23,8 +23,8 @@ export function useRepositories () {
     const res = await list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
-      listRes.list = res.data.list
-      listRes.total = res.data.total
+      listRes.list = res.payload.list
+      listRes.total = res.payload.total
     }
   }
 
@@ -40,7 +40,7 @@ export function useRepositories () {
   const getGroups = async () => {
     const res = await groups({ page_size: 9999 }).catch(_ => false)
     if (res) {
-      listRes.groups = res.data.list
+      listRes.groups = res.payload.list
     }
   }
 
@@ -50,7 +50,7 @@ export function useRepositories () {
     q.page = 1
     const res = await list(q).catch(_ => false)
     if (res) {
-      const csv = jsonToCsv(res.data.list)
+      const csv = jsonToCsv(res.payload.list)
       downBlob(csv, 'users.csv')
     }
   }

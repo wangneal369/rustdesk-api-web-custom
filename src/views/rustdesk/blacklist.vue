@@ -58,7 +58,7 @@
     const res = await sendCmd({ cmd: form.get_cmd, target: RELAY_TARGET }).catch(_ => false)
     form.loading = false
     if (res) {
-      form.list = res.data.split('\n').filter(i => i)
+      form.list = res.payload.split('\n').filter(i => i)
     }
   }
   const showForm = (type) => {

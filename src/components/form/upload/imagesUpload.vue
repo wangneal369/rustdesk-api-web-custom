@@ -166,7 +166,7 @@
       }
 
       function fileUploadSuccess (response, file, _fileList) {
-        file.url = response?.data?.url || file.url
+        file.url = response?.payload?.url || file.url
         if (_fileList.every(f => f.status === 'success')) {
           updateValue(_fileList)
         }

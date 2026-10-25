@@ -133,8 +133,8 @@
     const res = await list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
-      listRes.list = res.data.list
-      listRes.total = res.data.total
+      listRes.list = res.payload.list
+      listRes.total = res.payload.total
     }
   }
   const handlerQuery = () => {

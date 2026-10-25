@@ -210,8 +210,8 @@
     const res = await list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
-      listRes.list = res.data.list
-      listRes.total = res.data.total
+      listRes.list = res.payload.list
+      listRes.total = res.payload.total
     }
   }
   const handlerQuery = () => {
@@ -290,7 +290,7 @@
     q.page = 1
     const res = await list(q).catch(_ => false)
     if (res) {
-      const data = res.data.list.map(item => {
+      const data = res.payload.list.map(item => {
         item.last_online_time = item.last_online_time ? new Date(item.last_online_time * 1000).toLocaleString() : '-'
         delete item.user_id
         delete item.user

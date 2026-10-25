@@ -40,7 +40,7 @@
     const res = await sendCmd({ cmd: 'rs', target: ID_TARGET }).catch(_ => false)
     form.loading = false
     if (res) {
-      const data = res.data.split('\n').filter(i => i)
+      const data = res.payload.split('\n').filter(i => i)
       form.option = data.join(',')
     }
   }

@@ -38,7 +38,7 @@
   const getInfo = async () => {
     const res = await info({ code }).catch(_ => false)
     if (res) {
-      oauthInfo.value = res.data
+      oauthInfo.value = res.payload
     } else {
       // router.push('/')
     }

@@ -40,7 +40,7 @@
     const res = await sendCmd({ cmd: 'ml', target: ID_TARGET }).catch(_ => false)
     form.loading = false
     if (res) {
-      if (res.data === 'MUST_LOGIN: true' || res.data === 'MUST_LOGIN: true\n') {
+      if (res.payload === 'MUST_LOGIN: true' || res.payload === 'MUST_LOGIN: true\n') {
         form.option = 'Y'
       } else {
         form.option = 'N'

@@ -120,7 +120,7 @@
     }*/
     const res = await shareByWebClient(_formData).catch(_ => false)
     if (res) {
-      link.value = getV2ShareUrl(res.data.share_token)
+      link.value = getV2ShareUrl(res.payload.share_token)
       emits('success')
     }
     loading.value = false

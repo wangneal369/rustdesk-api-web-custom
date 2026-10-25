@@ -78,7 +78,7 @@
     if (!res) {
       return
     }
-    userStore.saveUserData(res.data)
+    userStore.saveUserData(res.payload)
     useAppStore().loadConfig()
     ElMessage.success('Submit')
     router.push('/')

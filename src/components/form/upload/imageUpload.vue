@@ -113,7 +113,7 @@
       }
 
       function fileUploadSuccess (response, file, _fileList) {
-        file.url = response?.data?.url || file.url
+        file.url = response?.payload?.url || file.url
         if (_fileList.length > 1) {
           _fileList.splice(0, 1)
         }

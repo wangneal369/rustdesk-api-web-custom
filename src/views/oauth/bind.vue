@@ -38,7 +38,7 @@
   const getInfo = async () => {
     const res = await info({ code }).catch(_ => false)
     if (res) {
-      oauthInfo.value = res.data
+      oauthInfo.value = res.payload
     } else {
       router.push('/')
     }
@@ -49,7 +49,7 @@
     const res = await bindConfirm({ code }).catch(_ => false)
     if (res) {
       resStatus.value = 1
-      if (res.data.device_type === 'webadmin') {
+      if (res.payload.device_type === 'webadmin') {
         ElMessage.success(T('OperationSuccess'))
         //后台登录
         router.push('/')

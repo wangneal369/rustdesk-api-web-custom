@@ -23,7 +23,7 @@ export function useOss (beforeUp, multiple) {
     const now = Date.parse(new Date()) / 1000
     if (fileExpire.value < now) {
       const res = await ossToken()
-      const obj = JSON.parse(res.data)
+      const obj = JSON.parse(res.payload)
       fileExpire.value = parseInt(obj['expire'])
       fileUploadData.policy = obj['policy']
       fileUploadData.OSSAccessKeyId = obj['accessid']

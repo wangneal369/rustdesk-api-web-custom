@@ -11,8 +11,8 @@ export function useGetDetail (id) {
   const groupsList = ref([])
   const getDetail = async (id) => {
     const res = await detail(id)
-    item.value = { ...res.data }
-    form.value = { ...res.data }
+    item.value = { ...res.payload }
+    form.value = { ...res.payload }
   }
   if (id > 0) {
     onMounted(_ => {getDetail(id)})
@@ -21,7 +21,7 @@ export function useGetDetail (id) {
   const getGroups = async () => {
     const res = await groups({ page_size: 9999 }).catch(_ => false)
     if (res) {
-      groupsList.value = res.data.list
+      groupsList.value = res.payload.list
     }
   }
   onMounted(getGroups)
@@ -51,12 +51,12 @@ export function useSubmit (form, id) {
 
   const submitCreate = async () => {
     const res = await create(form.value).catch(_ => false)
-    return res.code === 0
+    return res.errcode === 0
   }
 
   const submitUpdate = async () => {
     const res = await update(form.value).catch(_ => false)
-    return res.code === 0
+    return res.errcode === 0
   }
   const submitFunc = id > 0 ? submitUpdate : submitCreate
 

@@ -30,22 +30,22 @@ export function useRepositories (api_type = 'my') {
     listRes.loading = false
     if (res) {
       //通过uuid补全peer信息
-      const uuids = res.data.list.filter(item => item.uuid && item.client === 'client' && !item.device_id).map(item => item.uuid)
+      const uuids = res.payload.list.filter(item => item.uuid && item.client === 'client' && !item.device_id).map(item => item.uuid)
       if (uuids.length > 0) {
         //uuids去重
         const uniqueUuids = [...new Set(uuids)]
         const peers = await apis[api_type].fetchPeers({ uuids: uniqueUuids }).catch(_ => false)
-        if (peers?.data?.list) {
-          res.data.list.forEach(item => {
+        if (peers?.payload?.list) {
+          res.payload.list.forEach(item => {
             if (item.uuid) {
-              item.peer = peers.data.list.find(peer => peer.uuid === item.uuid)
+              item.peer = peers.payload.list.find(peer => peer.uuid === item.uuid)
             }
           })
         }
       }
 
-      listRes.list = res.data.list
-      listRes.total = res.data.total
+      listRes.list = res.payload.list
+      listRes.total = res.payload.total
     }
   }
   const handlerQuery = () => {
@@ -105,7 +105,7 @@ export function useRepositories (api_type = 'my') {
     q.page = 1
     const res = await admin_list(q).catch(_ => false)
     if (res) {
-      const csv = jsonToCsv(res.data.list)
+      const csv = jsonToCsv(res.payload.list)
       downBlob(csv, 'loginLog.csv')
     }
   }

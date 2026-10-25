@@ -84,23 +84,25 @@
   const captchaCode = ref('')
   const redirect = route.query?.redirect
   const login = async () => {
-    const res = await userStore.login(form).catch(e => e)
-    if (!res.code) {
-      ElMessage.success(T('LoginSuccess'))
-      router.push({ path: redirect || '/', replace: true })
+    // 成功时 store 返回用户数据、失败时抛出响应或网络错误，用 try/catch 区分，避免网络错误被当作登录成功
+    try {
+      await userStore.login(form)
+    } catch (res) {
+      if (res?.errcode === 110) {
+        // need captcha
+        loadCaptcha()
+      }
       return
     }
-    if (res.code === 110) {
-      // need captcha
-      loadCaptcha()
-    }
+    ElMessage.success(T('LoginSuccess'))
+    router.push({ path: redirect || '/', replace: true })
   }
 
   const loadCaptcha = async () => {
     const captchaRes = await captcha().catch(_ => false)
     console.log(captchaRes)
-    captchaCode.value = captchaRes.data.captcha
-    form.captcha_id = captchaRes.data.captcha.id
+    captchaCode.value = captchaRes.payload.captcha
+    form.captcha_id = captchaRes.payload.captcha.id
   }
 
   const handleOIDCLogin = (provider) => {
@@ -130,15 +132,15 @@
   const loadLoginOptions = async () => {
     try {
       const res = await loginOptions().catch(_ => false)
-      if (!res || !res.data) return console.error('No valid response received')
-      res.data.ops.map(option => (options.push({ name: option }))) // 创建新的对象数组
-      if (res.data.auto_oidc) {
+      if (!res || !res.payload) return console.error('No valid response received')
+      res.payload.ops.map(option => (options.push({ name: option }))) // 创建新的对象数组
+      if (res.payload.auto_oidc) {
         // 如果有自动OIDC登录选项，直接调用第一个
-        handleOIDCLogin(res.data.ops[0])
+        handleOIDCLogin(res.payload.ops[0])
       }
-      disablePwd.value = res.data.disable_pwd
-      allowRegister.value = res.data.register
-      if (res.data.need_captcha) {
+      disablePwd.value = res.payload.disable_pwd
+      allowRegister.value = res.payload.register
+      if (res.payload.need_captcha) {
         loadCaptcha()
       }
     } catch (error) {

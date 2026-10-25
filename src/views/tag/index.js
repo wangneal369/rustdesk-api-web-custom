@@ -72,11 +72,11 @@ export function useRepositories (api_type = 'my') {
     const res = await apis[api_type].list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
-      listRes.list = res.data.list.map(item => {
+      listRes.list = res.payload.list.map(item => {
         item.color = flutterColor2rgba(item.color)
         return item
       })
-      listRes.total = res.data.total
+      listRes.total = res.payload.total
     }
   }
   const handlerQuery = () => {

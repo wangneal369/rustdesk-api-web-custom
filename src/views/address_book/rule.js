@@ -25,8 +25,8 @@ export function useRepositories (api_type = 'my') {
     const res = await apis[api_type].list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
-      listRes.list = res.data.list
-      listRes.total = res.data.total
+      listRes.list = res.payload.list
+      listRes.total = res.payload.total
     }
   }
   const handlerQuery = () => {
@@ -120,18 +120,18 @@ export function useRepositories (api_type = 'my') {
   const getGroupUsers = async () => {
     const res = await groupUsers().catch(_ => false)
     if (res) {
-      groups.value = res.data.groups.map(item => {
+      groups.value = res.payload.groups.map(item => {
         if (!item.children) {
           item.children = []
         }
-        res.data.users.map(u => {
+        res.payload.users.map(u => {
           if (item.id === u.group_id) {
             item.children.push(u)
           }
         })
         return item
       })
-      users.value = res.data.users
+      users.value = res.payload.users
     }
   }
   const changeGId = () => {

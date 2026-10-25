@@ -58,7 +58,7 @@
   const getMyOauth = async () => {
     const res = await myOauth().catch(_ => false)
     if (res) {
-      oidcData.value = res.data
+      oidcData.value = res.payload
     }
 
   }
@@ -66,7 +66,7 @@
   const toBind = async (row) => {
     const res = await bind({ op: row.op }).catch(_ => false)
     if (res) {
-      const { code, url } = res.data
+      const { code, url } = res.payload
       window.open(url)
     }
   }

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h4 v-html="T('ServerCmdTips', {wiki: '<a target=\'_blank\' href=\'https://github.com/lejianwen/rustdesk-api/wiki/Rustdesk-Command\'>WIKI</a>'})"></h4>
     <h5>
       <span>ID {{ T('Status') }}: </span>
       <el-tag v-if="canSendIdServerCmd" type="success">{{ T('Available') }}</el-tag>
@@ -133,9 +132,9 @@
   const canSendIdServerCmd = ref(false)
   const checkCanSendIdServerCmd = async () => {
     const res = await sendCmd({ cmd: 'h', target: ID_TARGET }).catch(_ => false)
-    canSendIdServerCmd.value = !!res.data
+    canSendIdServerCmd.value = !!res.payload
     if (canSendIdServerCmd.value) {
-      const commands = res.data.split('\n').filter(i => i)
+      const commands = res.payload.split('\n').filter(i => i)
       console.log(commands)
       canControlMustLogin.value = commands.some(i => i.includes('must-login'))
     }
@@ -151,7 +150,7 @@
 
   const checkCanSendRelayServerCmd = async () => {
     const res = await sendCmd({ cmd: 'h', target: RELAY_TARGET }).catch(_ => false)
-    canSendRelayServerCmd.value = !!res.data
+    canSendRelayServerCmd.value = !!res.payload
   }
   const refreshCanSendRelayServerCmd = () => {
     checkCanSendRelayServerCmd()
@@ -185,8 +184,8 @@
     const res = await list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
-      listRes.list = res.data.list
-      listRes.total = res.data.total
+      listRes.list = res.payload.list
+      listRes.total = res.payload.total
     }
   }
   const handlerQuery = () => {
@@ -273,7 +272,7 @@
   const submitCmd = async () => {
     sendCmd(customCmd).then(res => {
       console.log(res)
-      customCmd.res = res.data
+      customCmd.res = res.payload
       ElMessage.success(T('OperationSuccess'))
     })
   }

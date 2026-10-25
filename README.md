@@ -1,27 +1,13 @@
-# RustDesk API Web
-# 基于 Vue3 + Element Plus 的后台, 适用于 [RustDesk API](https://github.com/lejianwen/rustdesk-api)
+# RustDesk 管理后台（Vue 3 + Element Plus）
 
-<a href="https://github.com/vuejs/vue-next">
-    <img src="https://img.shields.io/badge/vue-^3.2.16-brightgreen.svg" alt="vue3">
-  </a>
-  <a href="https://github.com/element-plus/element-plus">
-    <img src="https://img.shields.io/badge/element--plus-^2.8.2-brightgreen.svg" alt="element-plus">
-  </a>
-  <a href="https://github.com/lejianwen/Gwen-admin/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="license">
-  </a>
+用于管理 RustDesk API 服务端的前端管理界面，构建产物由后端通过 `/console/` 提供。
 
-# 安装步骤
+## 开发与构建
 
 ```shell
-git clone https://github.com/lejianwen/rustdesk-api-web
-cd rustdesk-api-web   
-npm install
-
-// 本地开发
-npm run dev
-
-// 打包
-npm run build
-
+npm ci
+npm run dev     # 本地开发
+npm run build   # 生成 dist/，复制到后端 resources/admin/
 ```
+
+基于 lejianwen/rustdesk-api-web（MIT License）二次开发

@@ -21,11 +21,11 @@ export function useRepositories () {
     const res = await list(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
-      listRes.list = res.data.list.map(item => {
+      listRes.list = res.payload.list.map(item => {
         item.close_time = item.close_time ? formatTime(item.close_time * 1000) : '-'
         return item
       })
-      listRes.total = res.data.total
+      listRes.total = res.payload.total
     }
   }
   const handlerQuery = () => {
@@ -80,7 +80,7 @@ export function useRepositories () {
     q.page = 1
     const res = await list(q).catch(_ => false)
     if (res) {
-      const csv = jsonToCsv(res.data.list)
+      const csv = jsonToCsv(res.payload.list)
       downBlob(csv, 'connectLog.csv')
     }
   }
@@ -111,11 +111,11 @@ export function useFileRepositories () {
     const res = await fileList(listQuery).catch(_ => false)
     listRes.loading = false
     if (res) {
-      listRes.list = res.data.list.map(item => {
+      listRes.list = res.payload.list.map(item => {
         item.info = item.info ? JSON.parse(item.info) : '-'
         return item
       })
-      listRes.total = res.data.total
+      listRes.total = res.payload.total
     }
   }
   const handlerQuery = () => {
@@ -170,7 +170,7 @@ export function useFileRepositories () {
     q.page = 1
     const res = await fileList(q).catch(_ => false)
     if (res) {
-      const csv = jsonToCsv(res.data.list)
+      const csv = jsonToCsv(res.payload.list)
       downBlob(csv, 'fileTransformLog.csv')
     }
   }

@@ -63,14 +63,14 @@ export const useAppStore = defineStore({
     getAppConfig () {
       console.log('getAppConfig')
       return app().then(res => {
-        this.setting.appConfig = res.data
+        this.setting.appConfig = res.payload
       })
     },
     getAdminConfig () {
       console.log('getAdminConfig')
       return admin().then(res => {
-        this.replaceAdminTitle(res.data.title)
-        this.setting.hello = res.data.hello
+        this.replaceAdminTitle(res.payload.title)
+        this.setting.hello = res.payload.hello
       })
     },
     replaceAdminTitle (newTitle) {
@@ -81,11 +81,11 @@ export const useAppStore = defineStore({
       console.log('loadRustdeskConfig')
       const res = await server().catch(_ => false)
       if (res) {
-        this.setting.rustdeskConfig = res.data
+        this.setting.rustdeskConfig = res.payload
         const prefix = 'wc-'
-        localStorage.setItem(`${prefix}custom-rendezvous-server`, res.data.id_server)
-        localStorage.setItem(`${prefix}key`, res.data.key)
-        localStorage.setItem(`${prefix}api-server`, res.data.api_server)
+        localStorage.setItem(`${prefix}custom-rendezvous-server`, res.payload.id_server)
+        localStorage.setItem(`${prefix}key`, res.payload.key)
+        localStorage.setItem(`${prefix}api-server`, res.payload.api_server)
       }
 
     },

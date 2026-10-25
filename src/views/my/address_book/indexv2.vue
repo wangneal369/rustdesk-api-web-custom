@@ -183,7 +183,7 @@
   const fetchTagListData = async () => {
     const res = await fetchTagList({ is_my: 1 }).catch(_ => false)
     if (res) {
-      tagList.value = res.data.list
+      tagList.value = res.payload.list
     }
   }
   fetchTagListData()

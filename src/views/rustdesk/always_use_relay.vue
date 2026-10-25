@@ -41,7 +41,7 @@
     const res = await sendCmd({ cmd: 'aur', target: ID_TARGET }).catch(_ => false)
     form.loading = false
     if (res) {
-      if (res.data === 'ALWAYS_USE_RELAY: true' || res.data === 'ALWAYS_USE_RELAY: true\n') {
+      if (res.payload === 'ALWAYS_USE_RELAY: true' || res.payload === 'ALWAYS_USE_RELAY: true\n') {
         form.option = 'Y'
       } else {
         form.option = 'N'

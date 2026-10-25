@@ -44,7 +44,7 @@
     const res = await sendCmd({ cmd: form.get_cmd, target: RELAY_TARGET }).catch(_ => false)
     form.loading = false
     if (res) {
-      form.list = res.data.split('\n').filter(i => i).map(i => i.split(" "))
+      form.list = res.payload.split('\n').filter(i => i).map(i => i.split(" "))
     }
   }
   watch(() => props.canSend, (v) => {

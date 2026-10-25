@@ -7,7 +7,7 @@ export function loadAllUsers () {
   const getAllUsers = async () => {
     const res = await fetchUsers({ page_size: 9999 }).catch(_ => false)
     if (res) {
-      allUsers.value = res.data.list
+      allUsers.value = res.payload.list
     }
   }
 

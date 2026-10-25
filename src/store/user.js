@@ -43,9 +43,10 @@ export const useUserStore = defineStore({
     async login (form) {
       const res = await login(form).catch(e => e)
       console.log('login', res)
-      if (!res.code) {
+      // errcode 必须显式为 0：网络错误（AxiosError）没有该字段，不能被当作成功
+      if (res.errcode === 0) {
         useAppStore().loadConfig()
-        const userData = res.data
+        const userData = res.payload
         this.saveUserData(userData)
         return userData
       } else {
@@ -56,7 +57,7 @@ export const useUserStore = defineStore({
       const res = await current().catch(_ => false)
       if (res) {
         useAppStore().loadConfig()
-        const userData = res.data
+        const userData = res.payload
         setToken(userData.token)
         this.$patch({
           ...userData,
@@ -80,7 +81,7 @@ export const useUserStore = defineStore({
       }
       const res = await oidcAuth(data).catch(_ => false)
       if (res) {
-        const { code, url } = res.data
+        const { code, url } = res.payload
         setCode(code)
         if (provider == 'webauth') {
           window.open(url)
@@ -95,7 +96,7 @@ export const useUserStore = defineStore({
       if (res) {
         removeCode()
         useAppStore().loadConfig()
-        const userData = res.data
+        const userData = res.payload
         this.saveUserData(userData)
         return userData
       }
